@@ -367,4 +367,15 @@ DELETE FROM authors WHERE name = 'Adam B.';
 
 Complete the queries in `basic_queries.sql` in the library_sql repo.
 
-## Break (10 minutes / 2:10)
+## References and links
+
+* [SQL vs NoSQL](http://dataconomy.com/sql-vs-nosql-need-know/)
+* [To SQL or NoSQL? That’s the database question](http://arstechnica.com/information-technology/2016/03/to-sql-or-nosql-thats-the-database-question/)
+* [SQLite vs MySQL vs PostgresQL](https://www.digitalocean.com/community/tutorials/sqlite-vs-mysql-vs-postgresql-a-comparison-of-relational-database-management-systems)
+* [A beginners guide to SQL](http://www.sohamkamani.com/blog/2016/07/07/a-beginners-guide-to-sql/)
+* [Khan Academy: Intro to SQL](https://www.khanacademy.org/computing/computer-programming/sql)
+* [SQL Zoo](http://sqlzoo.net/)
+* http://sqlfiddle.com/#!15/35773/1
+* https://pgexercises.com/
+* https://www.sqlteaching.com/#!select
+* https://sqlbolt.com/lesson/select_queries_introduction
