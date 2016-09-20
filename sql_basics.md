@@ -15,18 +15,25 @@
 
 ## Framing
 
-What's the main problem with our programs right now, in terms of user
-experience?
+![SQL](./images/sql-nosql-comparison-dataconomy.png)
 
-When we quit them, any data / progress is lost! Right now, we can only store
-information in memory, which is wiped when a program is quit. We definitely
-need a way to fix this..
+*via [SQL vs. NoSQL- What you need to know](http://dataconomy.com/sql-vs-nosql-need-know/)*
+
+### SQL vs NoSQL comparison
+
+| SQL | NoSQL |
+| --- | ----- |
+| Since late 1970s | Since late 2000s |
+| Relational model | other data storage models |
+| Tables (rows and columns) | Documents (js objects) |
+| not easy to scale | easier to scale |
+| reliability, ACID compliance | no promises :) |
+| **Examples** Postgres, MySQL, SQLite | **Examples** MongoDB, Cassandra, Couchbase |
+
 
 ## Enter Databases (5 minutes / 0:40)
 
-A database is a tool for storing data. There are many ways to store data on a
-computer (e.g., writing to a text file, a binary file). Databases, however,
-offer a number of advantages:
+Reminder: a database is a tool for storing data. The benefits of using a database include:
 
 **Permanence** - Once we write data to our database, we can be pretty sure it
 won't be lost (unless the server catches on fire).
@@ -57,6 +64,10 @@ above make a database ACID-compliant.
 <!-- AM: Whiteboard a table(s) during this section. -->
 
 The most popular type of database is a **relational** database. How do they work?
+
+![SQL tables](./images/sql-is-fun.jpg)
+
+*Tabular!*
 
 **Data is stored in tables.**
 - These tables are organized by columns and rows, much like a spreadsheet.
@@ -111,61 +122,79 @@ Start by spotlight searching (`command-space`) for Postgres and launching `Postg
 
 ### psql commands
 
-<!-- AM: Where exactly are databases stored locally? -->
-
 We'll use `psql` as our primary means of interacting with our databases. Later
 on we'll use ruby or server-side JS programs to do so in our programs.
 
 Here's a quick demo. Following along is optional.
 
 ```sql
-help -- general help
+help -- show psql general help info
 \?   -- help with psql commands
 \h   -- help with SQL commands
 \l   -- Lists all databases
 
-CREATE DATABASE wdi8;
+CREATE DATABASE demodb;
+
 # What changed?
 \l
 
 -- What happens if we don't use a semicolon?
 
-\c wdi8 -- Connect to wdi8 database
+
+\c demodb -- Connect to the database
 
 \d -- Lists all tables
 
-CREATE TABLE students (
-  id SERIAL PRIMARY KEY,
-  first_name VARCHAR NOT NULL,
-  last_name VARCHAR NOT NULL,
-  quote TEXT,
-  birthday VARCHAR,
-  ssn INT NOT NULL UNIQUE
+CREATE TABLE pokemon (
+  number INT UNIQUE PRIMARY KEY,
+  name VARCHAR NOT NULL,
+  type VARCHAR NOT NULL,
+  description VARCHAR
 );
 
 \d
 
-SELECT * FROM students;
+SELECT * FROM pokemon;
 
-INSERT INTO students (first_name, last_name) VALUES ('Andy', 'Kim');
--- This won't work!
+-- nothing!
 
-INSERT INTO students (first_name, last_name, quote, birthday, ssn) VALUES ('Andy', 'Kim', 'Two goldfish are in a tank. One says, "Know how to drive this thing?"', 'April 7', 8675309);
-SELECT * FROM students;
 
-UPDATE students SET first_name = 'Andrew' WHERE first_name = 'Andy';
-SELECT * FROM students;
+INSERT INTO pokemon (number, name) VALUES (001, 'Bulbasaur');
+-- This won't work! Why?
 
-DELETE FROM students WHERE first_name = 'Andy';
-DELETE FROM students WHERE first_name = 'Andrew';
 
-SELECT * FROM students;
+INSERT INTO pokemon (number, name, type) VALUES (001, 'Bulbasaur', 'Grass');
+SELECT * FROM pokemon;
 
-DROP TABLE students;
+-- INSERT worked! Let's add more
+INSERT INTO pokemon (number, name, type) VALUES (002, 'Ivysaur', 'Grass');
+INSERT INTO pokemon (number, name, type) VALUES (003, 'Venusaur', 'Grass');
+INSERT INTO pokemon (number, name, type) VALUES (004, 'Charmander', 'Fire');
+INSERT INTO pokemon (number, name, type) VALUES (005, 'Charmeleon', 'Ghost');
+INSERT INTO pokemon (number, name, type) VALUES (006, 'Charizard', 'Fire');
+INSERT INTO pokemon (number, name, type) VALUES (007, 'Squitle', 'Water');
+INSERT INTO pokemon (number, name, type) VALUES (008, 'Wartortle', 'Water');
+INSERT INTO pokemon (number, name, type) VALUES (009, 'Blastoise', 'Water');
+INSERT INTO pokemon (number, name, type) VALUES (025, 'Pikachu', 'Electric');
+--INSERT INTO pokemon VALUES (026, 'Raichu', 'Electric');
 
-DROP DATABASE wdi8;
+SELECT * FROM pokemon;
 
-\q --quits
+
+-- UPDATE
+UPDATE pokemon SET type = 'Fire' WHERE number = 5;
+-- UPDATE pokemon SET name=...
+
+
+-- DELETE
+DELETE FROM pokemon WHERE name = 'Pikachu';
+
+
+-- DROP deletes tables and databases
+DROP TABLE IF EXISTS pokemon;
+DROP DATABASE IF EXISTS demodb;
+
+\q --quit
 ```
 
 In short...
