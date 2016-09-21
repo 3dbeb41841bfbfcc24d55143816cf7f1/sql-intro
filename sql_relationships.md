@@ -124,3 +124,7 @@ association with a specific category.
 ![many_to_many](images/many_to_many.png)
 
 ## Closing/Questions (10 minutes)
+
+## Resources and links
+
+* [Khan Academy: Relational queries in SQL](https://www.khanacademy.org/computing/computer-programming/sql#relational-queries-in-sql)
